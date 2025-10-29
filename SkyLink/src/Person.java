@@ -15,7 +15,7 @@ public class Person {
         this.address = address;
     }
 
-    public String getFullname() {
+    public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
 
@@ -31,6 +31,7 @@ public class Person {
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }

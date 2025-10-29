@@ -1,15 +1,15 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class Passenger extends Person {
+class Booking {}
+class Ticket {}
+class Flight {}
+class SeatClass {}
+class PaymentMethod {}
+class CheckIn {}
+class Refund {}
 
-    class Booking {}
-    class Ticket {}
-    class Flight {}
-    class SeatClass {}
-    class PaymentMethod {}
-    class CheckIn {}
-    class Refund {}
+public class Passenger extends Person {
 
     private String passengerId;
     private String passportNumber;
@@ -59,5 +59,41 @@ public class Passenger extends Person {
         if (this.loyaltyPoints >= points) {
             this.loyaltyPoints -= points;
         }
+    }
+
+    public String getPassengerId() {
+        return passengerId;
+    }
+
+    public void setPassengerId(String passengerId) {
+        this.passengerId = passengerId;
+    }
+
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public int getLoyaltyPoints() {
+        return loyaltyPoints;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 }
