@@ -1,107 +1,75 @@
 import java.util.List;
 import java.util.ArrayList;
 
-class Aircraft {}
-class NavigationRoute {}
-class AirTrafficControl {}
-class EmergencySystem {}
-class EmergencyAction {}
-class FlightLog {}
-class MedicalCertificate {}
+class ShiftSchedule {}
+class EmploymentStatus {}
+class Task {}
 
-public class Pilot extends Person {
+public class Staff extends Person {
 
-    private String licenseNumber;
-    private double totalFlightHours;
-    private List<String> ratings;
-    private List<FlightLog> flightLogs;
-    private MedicalCertificate medicalCertificate;
-    private boolean isOnDuty;
+    private String staffId;
+    private String role;
+    private ShiftSchedule shiftSchedule;
+    private EmploymentStatus employmentStatus;
 
-    public Pilot(long id, String firstName, String lastName, String contactNumber, String email, String address,
-                 String licenseNumber, MedicalCertificate medicalCertificate) {
+    public Staff(long id, String firstName, String lastName, String contactNumber, String email, String address, String staffId, String role, ShiftSchedule shiftSchedule, EmploymentStatus employmentStatus) {
         super(id, firstName, lastName, contactNumber, email, address);
 
-        this.licenseNumber = licenseNumber;
-        this.totalFlightHours = 0.0;
-        this.ratings = new ArrayList<>();
-        this.flightLogs = new ArrayList<>();
-        this.medicalCertificate = medicalCertificate;
-        this.isOnDuty = false;
+        this.staffId = staffId;
+        this.role = role;
+        this.shiftSchedule = shiftSchedule;
+        this.employmentStatus = employmentStatus;
     }
 
-    public void prepareFlightPlan(Flight flight) {
-        System.out.println("Preparing flight plan for flight...");
-    }
-
-    public boolean performPreFlightCheck(Aircraft aircraft) {
-        System.out.println("Performing pre-flight check...");
+    public boolean clockIn() {
+        System.out.println(getFullName() + " has clocked in for their shift.");
         return true;
     }
 
-    public void flySegment(NavigationRoute routeSegment) {
-        System.out.println("Flying route segment...");
+    public boolean clockOut() {
+        System.out.println(getFullName() + " has clocked out. See you next time!");
+        return true;
     }
 
-    public void handoverToCoPilot() {
-        System.out.println("Handover to co-pilot complete.");
+    public void updateShift(ShiftSchedule schedule) {
+        this.shiftSchedule = schedule;
+        System.out.println(getFullName() + "'s shift schedule has been updated.");
     }
 
-    public void recordFlightLog(FlightLog log) {
-        this.flightLogs.add(log);
-        System.out.println("Flight log recorded.");
+    public List<Task> getAssignedTasks() {
+        System.out.println(getFullName() + " currently has no assigned tasks.");
+        return new ArrayList<>();
     }
 
-    public void communicateWithATC(AirTrafficControl atc, String message) {
-        System.out.println("Communicating with ATC: " + message);
+    public void reportIssue(String issue) {
+        System.out.println(getFullName() + " reported an issue: " + issue);
     }
 
-    public EmergencyAction handleInFlightEmergency(EmergencySystem emergencySystem) {
-        System.out.println("Managing in-flight emergency...");
-        return new EmergencyAction();
+    public String getStaffId() {
+        return staffId;
     }
 
-    public String getLicenseNumber () {
-        return licenseNumber;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
     }
 
-    public void setLicenseNumber (String licenseNumber) {
-        this.licenseNumber = licenseNumber;
+    public String getRole() {
+        return role;
     }
 
-    public double getTotalFlightHours () {
-        return totalFlightHours;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public void addFlightHours (double flightHours) {
-        this.totalFlightHours += flightHours;
+    public ShiftSchedule getShiftSchedule() {
+        return shiftSchedule;
     }
 
-    public List<String> getRatings () {
-        return ratings;
+    public EmploymentStatus getEmploymentStatus() {
+        return employmentStatus;
     }
 
-    public void addRating(String rating) {
-        this.ratings.add(rating);
-    }
-
-    public List <FlightLog> getFlightLogs () {
-        return flightLogs;
-    }
-
-    public MedicalCertificate getMedicalCertificate () {
-        return medicalCertificate;
-    }
-
-    public void setMedicalCertificate (MedicalCertificate medicalCertificate) {
-        this.medicalCertificate = medicalCertificate;
-    }
-
-    public boolean isOnDuty () {
-        return isOnDuty;
-    }
-
-    public void setOnDuty (boolean onDuty) {
-        this.isOnDuty = onDuty;
+    public void setEmploymentStatus(EmploymentStatus employmentStatus) {
+        this.employmentStatus = employmentStatus;
     }
 }
