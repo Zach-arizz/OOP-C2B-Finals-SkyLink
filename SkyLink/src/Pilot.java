@@ -1,21 +1,20 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class Pilot extends Person {
+class Aircraft {}
+class NavigationRoute {}
+class AirTrafficControl {}
+class EmergencySystem {}
+class EmergencyAction {}
+class FlightLog {}
+class MedicalCertificate {}
 
-    class Flight {}
-    class Aircraft {}
-    class NavigationRoute {}
-    class EmergencySituation {}
-    class AirTrafficControl {}
-    class EmergencySystem {}
-    class FlightLog {}
-    class MedicalCertificate {}
+public class Pilot extends Person {
 
     private String licenseNumber;
     private double totalFlightHours;
-    private List<String> ratings;             
-    private List<FlightLog> flightLogs;        
+    private List<String> ratings;
+    private List<FlightLog> flightLogs;
     private MedicalCertificate medicalCertificate;
     private boolean isOnDuty;
 
@@ -37,23 +36,15 @@ public class Pilot extends Person {
 
     public boolean performPreFlightCheck(Aircraft aircraft) {
         System.out.println("Performing pre-flight check...");
-        return true; 
+        return true;
     }
 
     public void flySegment(NavigationRoute routeSegment) {
         System.out.println("Flying route segment...");
     }
 
-    public void handleEmergency(EmergencySituation emergency) {
-        System.out.println("Handling emergency: " + emergency.toString());
-    }
-
-    public void communicateWithATC(AirTrafficControl atc, String message) {
-        System.out.println("Communicating with ATC: " + message);
-    }
-
-    public void handleInFlightEmergency(EmergencySystem emergencySystem) {
-        System.out.println("Managing in-flight emergency...");
+    public void handoverToCoPilot() {
+        System.out.println("Handover to co-pilot complete.");
     }
 
     public void recordFlightLog(FlightLog log) {
@@ -61,23 +52,56 @@ public class Pilot extends Person {
         System.out.println("Flight log recorded.");
     }
 
-    public void handoverToCoPilot() {
-        System.out.println("Handover to co-pilot complete.");
+    public void communicateWithATC(AirTrafficControl atc, String message) {
+        System.out.println("Communicating with ATC: " + message);
     }
 
-    public void addFlightHours(double hours) {
-        this.totalFlightHours += hours;
+    public EmergencyAction handleInFlightEmergency(EmergencySystem emergencySystem) {
+        System.out.println("Managing in-flight emergency...");
+        return new EmergencyAction();
+    }
+
+    public String getLicenseNumber () {
+        return licenseNumber;
+    }
+
+    public void setLicenseNumber (String licenseNumber) {
+        this.licenseNumber = licenseNumber;
+    }
+
+    public double getTotalFlightHours () {
+        return totalFlightHours;
+    }
+
+    public void addFlightHours (double flightHours) {
+        this.totalFlightHours += flightHours;
+    }
+
+    public List<String> getRatings () {
+        return ratings;
     }
 
     public void addRating(String rating) {
         this.ratings.add(rating);
     }
 
-    public boolean isOnDuty() {
+    public List <FlightLog> getFlightLogs () {
+        return flightLogs;
+    }
+
+    public MedicalCertificate getMedicalCertificate () {
+        return medicalCertificate;
+    }
+
+    public void setMedicalCertificate (MedicalCertificate medicalCertificate) {
+        this.medicalCertificate = medicalCertificate;
+    }
+
+    public boolean isOnDuty () {
         return isOnDuty;
     }
 
-    public void setOnDuty(boolean onDuty) {
+    public void setOnDuty (boolean onDuty) {
         this.isOnDuty = onDuty;
     }
 }
