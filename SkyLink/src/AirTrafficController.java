@@ -1,7 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
 
-class Runway {}
 class Clearance {}
 
 public class AirTrafficController extends Person {
