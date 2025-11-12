@@ -1,29 +1,16 @@
 import java.util.List;
 import java.util.ArrayList;
 
-class Booking {}
-class Ticket {}
-class Flight {}
-class SeatClass {}
-class PaymentMethod {}
-class CheckIn {}
-class Refund {}
-
 public class Passenger extends Person {
+    private String passportNumber; // from UML
+    private String nationality;    // from UML
+    private int loyaltyPoints;     // from UML
+    private final List<Booking> bookings; // from UML
+    private final List<Ticket> tickets;    // from UML
 
-    private String passengerId;
-    private String passportNumber;
-    private String nationality;
-    private int loyaltyPoints;
-    private List<Booking> bookings;
-    private List<Ticket> tickets;
-
-    public Passenger (long id, String firstName, String lastName, String contactNumber, String email, String address,
-                      String passengerId, String passportNumber, String nationality) {
-
+    public Passenger(long id, String firstName, String lastName, String contactNumber, String email, String address,
+                     String passportNumber, String nationality) {
         super(id, firstName, lastName, contactNumber, email, address);
-
-        this.passengerId = passengerId;
         this.passportNumber = passportNumber;
         this.nationality = nationality;
         this.loyaltyPoints = 0;
@@ -31,44 +18,49 @@ public class Passenger extends Person {
         this.tickets = new ArrayList<>();
     }
 
-    public Booking requestBooking(Flight flight, SeatClass seatClass, int numSeats) {
-        return new Booking();
+    @Override
+    public String getRoleDescription() {
+        return "Passenger (Passport: " + this.passportNumber + ")";
     }
 
-    public boolean makePayment(PaymentMethod method, double amount) {
+    public Booking requestBooking(Flight flight, String seatClass, int numSeats) {
+        System.out.println("Booking requested for " + getFullName() + " on flight " + flight.getFlightNumber());
+        return null;
+    }
+
+    public boolean makePayment(String paymentMethod, double amount) {
+        System.out.println("Processing payment of $" + amount + " for " + getFullName());
         return true;
     }
 
-    public CheckIn performOnlineCheckIn(Flight flight) {
-        return new CheckIn();
+    public void performOnlineCheckin(Flight flight) {
+        System.out.println("Online check-in performed for flight " + flight.getFlightNumber() + " by " + getFullName());
     }
 
     public Ticket getTicket(String ticketNumber) {
-        return new Ticket();
+        System.out.println("Searching for ticket: " + ticketNumber);
+        return null;
     }
 
-    public Refund requestRefund(String ticketNumber, String reason) {
-        return null;
+    public void requestRefund(String ticketNumber, String reason) {
+        System.out.println("Refund requested for ticket " + ticketNumber + " by " + getFullName());
     }
 
     public void addLoyaltyPoints(int points) {
         this.loyaltyPoints += points;
+        System.out.println(points + " loyalty points added. New balance: " + this.loyaltyPoints);
     }
 
     public void redeemLoyaltyPoints(int points) {
         if (this.loyaltyPoints >= points) {
             this.loyaltyPoints -= points;
+            System.out.println(points + " loyalty points redeemed. Remaining balance: " + this.loyaltyPoints);
+        } else {
+            System.out.println("Insufficient loyalty points to redeem " + points + ".");
         }
     }
 
-    public String getPassengerId() {
-        return passengerId;
-    }
-
-    public void setPassengerId(String passengerId) {
-        this.passengerId = passengerId;
-    }
-
+    // Getters and Setters
     public String getPassportNumber() {
         return passportNumber;
     }
@@ -87,6 +79,10 @@ public class Passenger extends Person {
 
     public int getLoyaltyPoints() {
         return loyaltyPoints;
+    }
+
+    public void setLoyaltyPoints(int loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
     }
 
     public List<Booking> getBookings() {

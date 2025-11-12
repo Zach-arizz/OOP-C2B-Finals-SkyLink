@@ -1,90 +1,116 @@
+import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
-
-class Weather{}
 
 public class Airport {
-    private String airportCode;
-    private String name;
-    private String location;
-    private List<Terminal> terminals;
-    private List<Runway> runways;
-    private List<Gate> gates;
-    private Weather currentWeather;
+    // Properties (Fields)
+    private final String airportCode;
+    private final String name;
+    private final String location;
+    private final double latitude;
+    private final double longitude;
+    private final List<Terminal> terminals;
+    private final List<Runway> runways;
+    private final List<Gate> gates;
+    private final Weather currentWeather;
 
-    public Airport(String airportCode, String name, String location, Weather currentWeather) {
+    // Constructor
+    public Airport(String airportCode, String name, String location, double latitude, double longitude) {
+        if (airportCode == null || airportCode.trim().isEmpty() || name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Airport code and name cannot be null or empty.");
+        }
         this.airportCode = airportCode;
         this.name = name;
         this.location = location;
-        this.terminals = new ArrayList<>();
-        this.runways = new ArrayList<>();
-        this.gates = new ArrayList<>();
-        this.currentWeather = null;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.terminals = new java.util.ArrayList<>();
+        this.runways = new java.util.ArrayList<>();
+        this.gates = new java.util.ArrayList<>();
+        this.currentWeather = new Weather(location);
     }
 
+    // Methods
     public void addTerminal(Terminal terminal) {
-        this.terminals.add(terminal);
-        System.out.println("Terminal added");
+        if (terminal != null) {
+            this.terminals.add(terminal);
+        }
     }
 
     public void addRunway(Runway runway) {
-        this.runways.add(runway);
-        System.out.println("Runway added");
+        if (runway != null) {
+            this.runways.add(runway);
+        }
     }
 
     public Gate assignGateToFlight(Flight flight) {
-        System.out.println("Assigning gate to flight");
+        for (Gate gate : gates) {
+            if (gate.isAvailable()) {
+                gate.setCurrentFlight(flight);
+                System.out.println("Flight " + flight.getFlightNumber() + " assigned to Gate " + gate.getGateNumber());
+                return gate;
+            }
+        }
+        System.out.println("No gates currently available.");
         return null;
     }
 
-    public void updateWeather(Weather weather) {
-        this.currentWeather = weather;
-        System.out.println("Weather updated");
+    public void updateWeather(WeatherObservation newObservation) {
+        this.currentWeather.updateObservation(newObservation);
+        System.out.println("Airport weather updated: " + this.currentWeather.getCondition());
+        if (this.currentWeather.isSevereForAircraft(null)) {
+            System.out.println("CRITICAL: Severe weather alert! Conditions: " + this.currentWeather.getCondition());
+        }
     }
 
     public Terminal getTerminalById(String terminalId) {
-        System.out.println("Searching for terminal with id...");
+        for (Terminal terminal : terminals) {
+            if (terminal.getTerminalId().equals(terminalId)) {
+                return terminal;
+            }
+        }
         return null;
     }
 
     public void generateAirportReport() {
-        System.out.println("Generating airport report");
+        System.out.println("Generating operational report for " + this.name + " (" + this.airportCode + ")");
+        System.out.println("Current Weather Summary: " + this.currentWeather.summarizeForFlightPlan());
     }
 
+    public Waypoint toWaypoint() {
+        return new Waypoint(this.airportCode, this.latitude, this.longitude, "Airport");
+    }
+
+    // Getters and Setters
     public String getAirportCode() {
         return airportCode;
-    }
-
-    public void setAirportCode(String airportCode) {
-        this.airportCode = airportCode;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     public List<Terminal> getTerminals() {
-        return terminals;
+        return Collections.unmodifiableList(terminals);
     }
 
     public List<Runway> getRunways() {
-        return runways;
+        return Collections.unmodifiableList(runways);
     }
 
     public List<Gate> getGates() {
-        return gates;
+        return Collections.unmodifiableList(gates);
     }
 
     public Weather getCurrentWeather() {
