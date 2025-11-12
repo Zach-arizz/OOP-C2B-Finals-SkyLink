@@ -1,4 +1,5 @@
 public enum RunwayStatus {
     OPEN,
-    MAINTENANCE, CLOSED
+    MAINTENANCE,
+    CLOSED
 }

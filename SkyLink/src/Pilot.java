@@ -1,107 +1,173 @@
 import java.util.List;
 import java.util.ArrayList;
-
-class Aircraft {}
-class NavigationRoute {}
-class AirTrafficControl {}
-class EmergencySystem {}
-class EmergencyAction {}
-class FlightLog {}
-class MedicalCertificate {}
+import java.util.Date;
+import java.util.Collections;
 
 public class Pilot extends Person {
-
-    private String licenseNumber;
+    // Properties (Fields)
+    private final String licenseNumber;
     private double totalFlightHours;
-    private List<String> ratings;
-    private List<FlightLog> flightLogs;
+    private final List<String> ratings;
+    private final List<FlightLog> flightLogs;
     private MedicalCertificate medicalCertificate;
     private boolean isOnDuty;
 
+    // Constructor
     public Pilot(long id, String firstName, String lastName, String contactNumber, String email, String address,
-                 String licenseNumber, MedicalCertificate medicalCertificate) {
+                 String licenseNumber, double totalFlightHours) {
         super(id, firstName, lastName, contactNumber, email, address);
-
-        this.licenseNumber = licenseNumber;
-        this.totalFlightHours = 0.0;
+        if (licenseNumber == null || licenseNumber.trim().isEmpty()) {
+            throw new IllegalArgumentException("License number cannot be null or empty.");
+        }
+        if (totalFlightHours < 0) {
+            throw new IllegalArgumentException("Total flight hours cannot be negative.");
+        }
+        this.licenseNumber = licenseNumber.trim();
+        this.totalFlightHours = totalFlightHours;
         this.ratings = new ArrayList<>();
         this.flightLogs = new ArrayList<>();
-        this.medicalCertificate = medicalCertificate;
         this.isOnDuty = false;
+        this.medicalCertificate = null;
     }
 
-    public void prepareFlightPlan(Flight flight) {
-        System.out.println("Preparing flight plan for flight...");
+    // Methods
+    @Override
+    public String getRoleDescription() {
+        return "Pilot (License: " + this.licenseNumber + ", Hours: " + this.totalFlightHours + ")";
     }
 
-    public boolean performPreFlightCheck(Aircraft aircraft) {
-        System.out.println("Performing pre-flight check...");
+    public void declareFlightEmergency(EmergencySystem emergency, EmergencyType type, String details) {
+        if (emergency == null || type == null || details == null || details.trim().isEmpty()) {
+            System.err.println("Cannot declare emergency: System, type, or details are invalid.");
+            return;
+        }
+        emergency.declareEmergency(type, "Pilot " + getLastName() + " declaration: " + details.trim());
+        emergency.coordinateWithATCForPriority(null, type.name() + " PRIORITY");
+    }
+
+    public void logEmergencyAction(EmergencySystem emergency, String actionDescription) {
+        if (emergency == null || actionDescription == null || actionDescription.trim().isEmpty()) {
+            System.err.println("Cannot log action: EmergencySystem is null or action is empty.");
+            return;
+        }
+        if (emergency.isEmergencyDeclared()) {
+            EmergencyResponseAction action = new EmergencyResponseAction(
+                    getLastName() + " (PIC)",
+                    actionDescription.trim(),
+                    new Date()
+            );
+            emergency.logAction(action);
+        } else {
+            System.out.println(getLastName() + " tried to log action, but no emergency is active.");
+        }
+    }
+
+    public boolean performPreFlightCheck(Object aircraft) {
+        if (aircraft == null) {
+            System.err.println("Cannot perform pre-flight check: Aircraft object is null.");
+            return false;
+        }
+        System.out.println("Pilot " + getLastName() + " performed pre-flight check on " + aircraft.getClass().getSimpleName());
         return true;
     }
 
-    public void flySegment(NavigationRoute routeSegment) {
-        System.out.println("Flying route segment...");
+    public void prepareFlightPlan(Object flight) {
+        if (flight == null) {
+            System.err.println("Cannot prepare flight plan: Flight object is null.");
+            return;
+        }
+        System.out.println("Pilot " + getLastName() + " prepared flight plan for " + flight.getClass().getSimpleName());
+    }
+
+    public void flySegment(String routeSegment) {
+        if (routeSegment == null || routeSegment.trim().isEmpty()) {
+            System.err.println("Cannot fly segment: Route segment is empty.");
+            return;
+        }
+        System.out.println("Pilot " + getLastName() + " is flying segment: " + routeSegment.trim());
     }
 
     public void handoverToCoPilot() {
-        System.out.println("Handover to co-pilot complete.");
+        this.isOnDuty = false;
+        System.out.println("Control handed over by Pilot " + getLastName());
     }
 
     public void recordFlightLog(FlightLog log) {
-        this.flightLogs.add(log);
-        System.out.println("Flight log recorded.");
+        if (log != null && log.hoursFlown() >= 0) {
+            this.flightLogs.add(log);
+            this.totalFlightHours += log.hoursFlown();
+            System.out.println("Flight record processed. Hours added: " + log.hoursFlown() + ". Total hours updated to: " + totalFlightHours);
+        } else {
+            System.err.println("No valid flight log provided (log is null or hours are negative).");
+        }
     }
 
-    public void communicateWithATC(AirTrafficControl atc, String message) {
-        System.out.println("Communicating with ATC: " + message);
+    public void communicateWithATC(String atc, String message) {
+        if (atc == null || atc.trim().isEmpty() || message == null || message.trim().isEmpty()) {
+            System.err.println("Cannot communicate: ATC identifier or message is empty.");
+            return;
+        }
+        System.out.println("Communicating with " + atc.trim() + ": '" + message.trim() + "'");
     }
 
-    public EmergencyAction handleInFlightEmergency(EmergencySystem emergencySystem) {
-        System.out.println("Managing in-flight emergency...");
-        return new EmergencyAction();
-    }
-
-    public String getLicenseNumber () {
-        return licenseNumber;
-    }
-
-    public void setLicenseNumber (String licenseNumber) {
-        this.licenseNumber = licenseNumber;
-    }
-
-    public double getTotalFlightHours () {
-        return totalFlightHours;
-    }
-
-    public void addFlightHours (double flightHours) {
-        this.totalFlightHours += flightHours;
-    }
-
-    public List<String> getRatings () {
-        return ratings;
+    public void handleInFlightEmergency(EmergencySystem emergency, String emergencyDetails) {
+        if (emergencyDetails == null || emergencyDetails.trim().isEmpty()) {
+            System.err.println("Cannot handle emergency: Details are empty.");
+            return;
+        }
+        String actionDescription = "Initiated emergency checklist for: " + emergencyDetails.trim();
+        logEmergencyAction(emergency, actionDescription);
+        System.out.println("Pilot " + getLastName() + " handling emergency: " + emergencyDetails.trim() + ".");
     }
 
     public void addRating(String rating) {
-        this.ratings.add(rating);
+        if (rating != null && !rating.trim().isEmpty()) {
+            String cleanRating = rating.trim();
+            if (!this.ratings.contains(cleanRating)) {
+                this.ratings.add(cleanRating);
+                System.out.println("Added rating: " + cleanRating);
+            }
+        } else {
+            System.err.println("Cannot add an empty rating.");
+        }
     }
 
-    public List <FlightLog> getFlightLogs () {
-        return flightLogs;
+    // Getters and Setters
+    public String getLicenseNumber() {
+        return licenseNumber;
     }
 
-    public MedicalCertificate getMedicalCertificate () {
+    public double getTotalFlightHours() {
+        return totalFlightHours;
+    }
+
+    public List<String> getRatings() {
+        return Collections.unmodifiableList(ratings);
+    }
+
+    public List<FlightLog> getFlightLogs() {
+        return Collections.unmodifiableList(flightLogs);
+    }
+
+    public MedicalCertificate getMedicalCertificate() {
         return medicalCertificate;
     }
 
-    public void setMedicalCertificate (MedicalCertificate medicalCertificate) {
-        this.medicalCertificate = medicalCertificate;
+    public void setMedicalCertificate(MedicalCertificate medicalCertificate) {
+        if (medicalCertificate != null) {
+            this.medicalCertificate = medicalCertificate;
+            System.out.println("Medical Certificate updated for Pilot " + getLastName());
+        } else {
+            System.err.println("Cannot set Medical Certificate to null.");
+        }
     }
 
-    public boolean isOnDuty () {
+    public boolean isOnDuty() {
         return isOnDuty;
     }
 
-    public void setOnDuty (boolean onDuty) {
+    public void toggleOnDuty(boolean onDuty) {
         this.isOnDuty = onDuty;
+        System.out.println(getLastName() + " status set to On Duty: " + onDuty);
     }
 }

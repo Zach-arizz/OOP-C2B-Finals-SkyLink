@@ -30,4 +30,3 @@ public class WaypointListManager {
         return new Duration(0);
     }
 }
-
