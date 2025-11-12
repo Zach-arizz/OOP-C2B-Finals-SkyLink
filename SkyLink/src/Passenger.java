@@ -2,11 +2,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Passenger extends Person {
-    private String passportNumber; // from UML
-    private String nationality;    // from UML
-    private int loyaltyPoints;     // from UML
-    private final List<Booking> bookings; // from UML
-    private final List<Ticket> tickets;    // from UML
+    private String passportNumber;
+    private String nationality;
+    private int loyaltyPoints;
+    private final List<Booking> bookings;
+    private final List<Ticket> tickets;
 
     public Passenger(long id, String firstName, String lastName, String contactNumber, String email, String address,
                      String passportNumber, String nationality) {
