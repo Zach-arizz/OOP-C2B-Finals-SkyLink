@@ -1,62 +1,74 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Copilot extends Person {
-
-    private String licenseNumber;
+    // Properties (Fields)
+    private final String licenseNumber;
     private double totalFlightHours;
     private Pilot primaryPilot;
-    private List<FlightLog> flightLogs;
+    private final List<FlightLog> flightLogs;
     private boolean isOnDuty;
 
-    public Copilot(long id, String firstName, String lastName, String contactNumber, String email, String address, String licenseNumber, Pilot primaryPilot) {
+    // Constructor
+    public Copilot(long id, String firstName, String lastName, String contactNumber, String email, String address,
+                   String licenseNumber, double totalFlightHours) {
         super(id, firstName, lastName, contactNumber, email, address);
-
         this.licenseNumber = licenseNumber;
-        this.totalFlightHours = 0.0;
-        this.primaryPilot = primaryPilot;
+        this.totalFlightHours = totalFlightHours;
         this.flightLogs = new ArrayList<>();
         this.isOnDuty = false;
+        this.primaryPilot = null;
     }
 
-    public void assistInFlightOperations () {
-        System.out.println("Assisting the pilot in flight operations...");
+    // Methods
+    @Override
+    public String getRoleDescription() {
+        return "Co Pilot (License: " + this.licenseNumber + ", Hours: " + this.totalFlightHours + ")";
+    }
+
+    public void assistInFlightOperations() {
+        System.out.println(getLastName() + " is assisting with in-flight operations.");
     }
 
     public boolean performInstrumentCrossCheck() {
+        System.out.println(getLastName() + " performing instrument cross-check and checklist verification.");
         return true;
     }
 
     public void monitorAircraftSystems() {
-        System.out.println("Monitoring the aircraft systems...");
+        System.out.println(getLastName() + " is monitoring all aircraft systems.");
     }
 
     public void takeControlIfRequired() {
-        System.out.println("Taking control if required...");
+        if (this.isOnDuty) {
+            System.out.println(getLastName() + " has taken temporary control of the aircraft (Pilot-Flying).");
+        } else {
+            System.out.println(getLastName() + " is not on duty and cannot take control.");
+        }
     }
 
-    public void updateFlightLog(FlightLog log) { // void return
-        this.flightLogs.add(log);
+    public void updateFlightLog(FlightLog log) {
+        if (log != null) {
+            this.flightLogs.add(log);
+            this.totalFlightHours += log.hoursFlown(); // Update total hours using the FlightLog field
+            System.out.println("Flight log updated by " + getLastName() + ". Hours added: " + log.hoursFlown());
+        } else {
+            System.out.println("Cannot update log: Provided FlightLog is null.");
+        }
     }
 
     public void coordinateWithCabinCrew(String status) {
-        System.out.println("Coordinating with cabin crew...");
+        System.out.println("Coordinating with Cabin Crew: " + status);
     }
 
+    // Getters and Setters
     public String getLicenseNumber() {
         return licenseNumber;
     }
 
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
-    }
-
     public double getTotalFlightHours() {
         return totalFlightHours;
-    }
-
-    public void addFlightHours(double flightHours) {
-        this.totalFlightHours += flightHours;
     }
 
     public Pilot getPrimaryPilot() {
@@ -65,17 +77,19 @@ public class Copilot extends Person {
 
     public void setPrimaryPilot(Pilot primaryPilot) {
         this.primaryPilot = primaryPilot;
+        System.out.println(getLastName() + " is now flying with Captain " + (primaryPilot != null ? primaryPilot.getLastName() : "Unknown"));
     }
 
     public List<FlightLog> getFlightLogs() {
-        return flightLogs;
+        return Collections.unmodifiableList(flightLogs);
     }
 
     public boolean isOnDuty() {
         return isOnDuty;
     }
 
-    public void setOnDuty(boolean onDuty) {
-        isOnDuty = onDuty;
+    public void toggleOnDuty(boolean onDuty) {
+        this.isOnDuty = onDuty;
+        System.out.println(getLastName() + " status set to On Duty: " + onDuty);
     }
 }

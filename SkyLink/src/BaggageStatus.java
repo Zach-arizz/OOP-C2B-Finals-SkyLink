@@ -1,0 +1,11 @@
+public enum BaggageStatus {
+    PENDING_CHECKIN,
+    CHECKED_IN,
+    IN_TRANSIT,
+    LOADED_ON_AIRCRAFT,
+    IN_AIR,
+    UNLOADED_AT_DESTINATION,
+    AVAILABLE_FOR_COLLECTION,
+    LOST,
+}
+

@@ -1,59 +1,61 @@
 import java.util.List;
 import java.util.ArrayList;
-
-class BoardingPass {}
-class Seat{}
-class BaggageTag {}
+import java.util.Collections;
 
 public class CheckInAgent extends Person {
-    private int counterNumber;
+    // Properties (Fields)
+    private final int counterNumber;
     private String terminalSection;
-    private List<String> acceptedDocuments;
+    private final List<String> acceptedDocuments;
     private boolean canIssueBoardingPass;
 
-    public CheckInAgent (long id, String firstName, String lastName, String contactNumber, String email, String address, int counterNumber, String terminalSection) {
+    // Constructor
+    public CheckInAgent(long id, String firstName, String lastName, String contactNumber, String email, String address,
+                        int counterNumber, String terminalSection) {
         super(id, firstName, lastName, contactNumber, email, address);
-
         this.counterNumber = counterNumber;
         this.terminalSection = terminalSection;
         this.acceptedDocuments = new ArrayList<>();
         this.canIssueBoardingPass = true;
     }
 
-    public CheckIn processCheckIn(Passenger passenger, Flight flight, List<Baggage> bags) {
-        System.out.println("Processing Check-In...");
-        return new CheckIn();
+    // Methods
+    @Override
+    public String getRoleDescription() {
+        return "Check-In Agent (Counter: " + this.counterNumber + ", ID: " + this.getId() + ")";
     }
 
-    public BoardingPass issueBoardingPass(Passenger passenger, Flight flight, Seat assignedSeat) {
-        System.out.println("Issuing Boarding Pass...");
-        return new BoardingPass();
+    public Object processCheckIn(Passenger passenger, Flight flight, List<Baggage> bags) {
+        System.out.println("Processing check-in for Passenger ID " + passenger.getId() + " at counter " + this.counterNumber + ".");
+        return null;
     }
 
-    public BaggageTag printBaggageTag(Baggage baggage, Passenger passenger) {
-        System.out.println("Printing Baggage Tag...");
-        return new BaggageTag();
+    public Object issueBoardingPass(Passenger passenger, Flight flight, Seat assignedSeat) {
+        System.out.println("Issuing boarding pass to " + passenger.getLastName() + " for seat " + assignedSeat.getSeatNumber() + ".");
+        return null;
+    }
+
+    public Object printBaggageTag(Baggage baggage, Passenger passenger) {
+        System.out.println("Printing tag for baggage " + baggage.getBaggageId() + " belonging to " + passenger.getLastName() + ".");
+        return null;
     }
 
     public boolean validateTravelDocuments(Passenger passenger) {
-        System.out.println("Validating Travel Documents...");
+        System.out.println("Validating travel documents for Passenger ID " + passenger.getId() + ".");
         return true;
     }
 
     public void handleOversoldSituations(Flight flight) {
-        System.out.println("Handling Oversold Situations...");
+        System.out.println("Handling oversold situation for Flight " + flight.getFlightNumber() + ".");
     }
 
     public void escalateCustomerIssue(String issueDetails) {
-        System.out.println("Escalating Customer Issue...");
+        System.out.println("Escalating customer issue: " + issueDetails);
     }
 
+    // Getters and Setters
     public int getCounterNumber() {
         return counterNumber;
-    }
-
-    public void setCounterNumber(int counterNumber) {
-        this.counterNumber = counterNumber;
     }
 
     public String getTerminalSection() {
@@ -65,11 +67,13 @@ public class CheckInAgent extends Person {
     }
 
     public List<String> getAcceptedDocuments() {
-        return acceptedDocuments;
+        return Collections.unmodifiableList(acceptedDocuments);
     }
 
     public void addAcceptedDocument(String document) {
-        acceptedDocuments.add(document);
+        if (document != null && !document.trim().isEmpty() && !acceptedDocuments.contains(document)) {
+            acceptedDocuments.add(document);
+        }
     }
 
     public boolean canIssueBoardingPass() {
