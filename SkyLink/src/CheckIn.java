@@ -8,7 +8,7 @@ public class CheckIn {
     private final Passenger passenger;
     private final Flight flight;
     private Seat assignedSeat;
-    private final List<Baggage> checkedBaggage; // Contents are mutable, but reference is final
+    private final List<Baggage> checkedBaggage;
     private boolean verifiedDocuments;
 
     // Constructor

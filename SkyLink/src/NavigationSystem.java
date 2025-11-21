@@ -104,7 +104,6 @@ public class NavigationSystem {
             Waypoint nextWaypoint = activeRoute.getWaypoints().get(currentWaypointIndex);
             nextWp = nextWaypoint.identifier();
 
-            // NOTE: Distance calculation remains a stub as the current coordinates are a String
             dist = 50.0;
         }
 
