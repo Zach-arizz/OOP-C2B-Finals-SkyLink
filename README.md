@@ -39,12 +39,6 @@ SkyLink Flight Management System is a sophisticated airline platform designed to
 - **Customer Support:** Offers a dedicated `CustomerService` channel for complaints and assistance, as well as `LostAndFound` management.
 - **Loyalty Programs:** Manages the `LoyaltyProgram`, tracks points, and handles `Reward` redemption.
 
-### 6. System Administration and Utilities
-- **Data Integrity and Security:** Managed by the `DatabaseManager`, `DataValidator`, and `SessionManager` for secure access.
-- **Logging and Auditing:** The `Logger` records all system transactions and events.
-- **Reporting and Analysis:** The `ReportGenerator` creates summaries for `SystemAdmin` and management oversight.
-- **User Notifications:** Uses the `Notification` system to send SMS/Email updates to passengers and staff.
-
 ---
 
 ## System Classes and Structure
@@ -137,13 +131,3 @@ This section outlines the primary classes and their roles within the SkyLink sys
 - Survey - Collect satisfaction rating
 - LoyaltyProgram - Tracks frequent flyer points
 - Reward - Represents redeemable items
-
-### System Utilities / Controllers
-- DatabaseManager - Read/writes from files or database
-- Logger - Record all transactions/events
-- Notification - Sends SMS/Email updates
-- SessionManager - Manages user login sessions
-- DataValidator - Checks input format and consistency
-- ReportGenerator - Creates summaries for admin
-- FileHandler - Manages .tt if files-based system
-- ErrorHandler - Handles runtime and logic errors
