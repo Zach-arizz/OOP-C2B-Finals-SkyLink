@@ -64,7 +64,7 @@ void main() {
 
     // MAIN BANNER
     UI.println(UI.SEPARATOR_EQ, UI.CYAN);
-    String bannerTitle = "MABUHAY AIRWAYS: GLOBAL INTERACTIVE SYSTEM";
+    String bannerTitle = "SKYLINK AIRWAYS: GLOBAL INTERACTIVE SYSTEM";
     String centeredBanner = UI.center(bannerTitle);
     UI.printTypewriter(centeredBanner, UI.YELLOW, 5);
     UI.println(UI.SEPARATOR_EQ, UI.CYAN);
@@ -531,7 +531,7 @@ void main() {
     System.out.printf(UI.GREEN + " GRAND TOTAL                : PHP %,10.2f\n" + UI.RESET, grandTotal);
     UI.println(UI.SEPARATOR_STAR, UI.PURPLE);
 
-    String thanksMessage = "Thank you for flying Mabuhay Airways!";
+    String thanksMessage = "Thank you for flying SkyLink Airways!";
     String centeredThanks = UI.center(thanksMessage);
     UI.printTypewriter(centeredThanks, UI.WHITE_BOLD, 5);
     UI.println(UI.SEPARATOR_STAR, UI.PURPLE);
