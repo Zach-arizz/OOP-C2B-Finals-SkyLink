@@ -1,3 +1,4 @@
+// FINALIZED
 public enum BaggageStatus {
     PENDING_CHECKIN,
     CHECKED_IN,

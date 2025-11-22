@@ -1,3 +1,4 @@
+// FINALIZED
 public class CheckInCounter {
     // Properties (Fields)
     private final int counterNumber;

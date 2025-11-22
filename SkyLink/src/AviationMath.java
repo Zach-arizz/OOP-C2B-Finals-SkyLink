@@ -1,3 +1,4 @@
+// FINALIZED
 public final class AviationMath {
     private static final int EARTH_RADIUS_KM = 6371;
 

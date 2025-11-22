@@ -1,3 +1,4 @@
+// FINALIZED
 public class TaxCalculator {
     // Properties (Fields)
     private double baseTaxRate;

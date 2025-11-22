@@ -1,3 +1,4 @@
+// FINALIZED
 import java.time.LocalTime;
 
 public class ShiftSchedule {

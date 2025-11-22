@@ -1,3 +1,4 @@
+// FINALIZED
 public class Gate {
     // Properties (Fields)
     private final String gateNumber;

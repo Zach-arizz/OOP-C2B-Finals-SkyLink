@@ -1,3 +1,4 @@
+// FINALIZED
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,7 +69,7 @@ public class Booking {
         }
     }
 
-    public Ticket generateTicket() {
+    public void generateTicket() {
         if (this.totalPrice == 0.0) {
             this.calculateTotalFare();
         }
@@ -76,7 +77,6 @@ public class Booking {
 
         Ticket ticket = new Ticket(newTicketNumber, this, this.totalPrice);
         System.out.println("Ticket " + newTicketNumber + " generated for booking " + this.bookingId + ".");
-        return ticket;
     }
 
     // Getters

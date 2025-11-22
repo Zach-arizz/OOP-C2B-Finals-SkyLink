@@ -1,3 +1,4 @@
+// FINALIZED
 import java.util.Date;
 
 public record RewardInfo(String rewardId, String name, RewardType type, int requiredPoints, int currentStock,

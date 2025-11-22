@@ -1,3 +1,4 @@
+// FINALIZED
 public enum TransactionStatus {
     SUCCESS,
     FAILED,

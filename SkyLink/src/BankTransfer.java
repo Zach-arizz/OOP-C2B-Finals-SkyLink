@@ -1,3 +1,4 @@
+// FINALIZED
 public class BankTransfer extends PaymentMethod {
     // Properties (Fields)
     private final String bankName;

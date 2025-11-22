@@ -1,3 +1,4 @@
+// FINALIZED
 public enum GateStatus {
     AVAILABLE,
     OCCUPIED,

@@ -1,3 +1,4 @@
+// FINALIZED
 public enum EmergencyType {
     MEDICAL,
     SECURITY_THREAT,

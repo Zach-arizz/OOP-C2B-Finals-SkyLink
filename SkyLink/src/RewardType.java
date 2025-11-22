@@ -1,3 +1,4 @@
+// FINALIZED
 public enum RewardType {
     FLIGHT_VOUCHER,
     MERCHANDISE,

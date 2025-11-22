@@ -1,4 +1,4 @@
-import java.util.Collections;
+// FINALIZED
 
 public class BoardingGate extends Gate {
     // Properties (Fields)
@@ -14,14 +14,14 @@ public class BoardingGate extends Gate {
     }
 
     // Methods
-    public boolean scanBoardingPass(BoardingPass pass) {
+    public void scanBoardingPass(BoardingPass pass) {
         if (pass == null) {
             System.err.println("Cannot scan null boarding pass.");
-            return false;
+            return;
         }
 
         System.out.println("Scanning pass...");
-        return pass.validateAtGate();
+        pass.validateAtGate();
     }
 
     public void announceBoardingGroup(String group) {

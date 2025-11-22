@@ -1,3 +1,4 @@
+// FINALIZED
 public enum AircraftStatus {
     PARKED,
     READY,

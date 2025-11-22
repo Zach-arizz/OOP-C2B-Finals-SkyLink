@@ -1,3 +1,4 @@
+// FINALIZED
 public class CreditCard extends PaymentMethod {
     // Properties (Fields)
     private final String cardNumber;

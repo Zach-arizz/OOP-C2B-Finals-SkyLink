@@ -1,3 +1,4 @@
+// FINALIZED
 public class BaggageTag {
     // Properties (Fields)
     private final String tagNumber;

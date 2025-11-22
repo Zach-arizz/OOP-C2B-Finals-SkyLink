@@ -1,3 +1,4 @@
+// FINALIZED
 import java.util.Date;
 
 public class BoardingPass {
@@ -21,21 +22,20 @@ public class BoardingPass {
     }
 
     // Methods
-    public boolean validateAtGate() {
+    public void validateAtGate() {
         if (flight == null) {
             System.out.println("Validation failed: Flight information is missing.");
-            return false;
+            return;
         }
 
         if (flight.getStatus() == FlightStatus.BOARDING && this.boardingGate != null) {
             this.isScanned = true;
             System.out.println("Boarding Pass " + this.passNumber + " validated at gate " + this.boardingGate.getGateNumber() + ".");
-            return true;
+            return;
         }
 
         System.out.println("Boarding Pass validation failed. Gate closed or flight not boarding (" + flight.getStatus().name() + ").");
         this.isScanned = false;
-        return false;
     }
 
     public void updateGate(Gate gate) {

@@ -1,3 +1,4 @@
+// FINALIZED
 import java.util.List;
 
 public class WaypointListManager {

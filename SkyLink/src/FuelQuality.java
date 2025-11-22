@@ -1,3 +1,4 @@
+// FINALIZED
 public enum FuelQuality {
     NOMINAL,
     CONTAMINATED,

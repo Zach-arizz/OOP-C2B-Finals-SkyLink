@@ -1,3 +1,4 @@
+// FINALIZED
 public enum BayStatus {
     AVAILABLE,
     OCCUPIED,

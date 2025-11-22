@@ -1,3 +1,4 @@
+// FINALIZED
 public record Duration(long totalMinutes) {
     public Duration {
         if (totalMinutes < 0) {

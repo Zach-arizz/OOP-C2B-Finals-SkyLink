@@ -1,3 +1,4 @@
+// FINALIZED
 public abstract class PaymentMethod {
     // Properties (Fields)
     private final String methodType;

@@ -1,3 +1,4 @@
+// FINALIZED
 public enum CancellationStatus {
     PENDING_APPROVAL,
     APPROVED,

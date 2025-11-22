@@ -1,3 +1,4 @@
+// FINALIZED
 public abstract class Person {
     // Properties (Fields)
     private final long id;

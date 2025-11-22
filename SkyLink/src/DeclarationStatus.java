@@ -1,3 +1,4 @@
+// FINALIZED
 public enum DeclarationStatus {
     FILED,
     PROCESSING,
