@@ -1,6 +1,8 @@
 public record Duration(long totalMinutes) {
-    public Duration(long totalMinutes) {
-        this.totalMinutes = Math.max(0, totalMinutes);
+    public Duration {
+        if (totalMinutes < 0) {
+            throw new IllegalArgumentException("Total minutes cannot be negative.");
+        }
     }
 
     public long getHours() {
@@ -13,7 +15,7 @@ public record Duration(long totalMinutes) {
 
     public String toFormattedString() {
         long hours = getHours();
-        long minutes = getRemainingMinutes();
+        long minutes = totalMinutes % 60;
         if (hours == 0) {
             return minutes + "m";
         }

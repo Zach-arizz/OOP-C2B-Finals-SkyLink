@@ -3,25 +3,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Collections;
 
-public class SecurityOfficer extends Person {
+public class SecurityOfficer extends Staff {
     // Properties (Fields)
     private String assignedCheckpoint;
     private final List<String> certifications;
-    private ShiftSchedule shiftSchedule;
-    private boolean isOnDuty;
 
     // Constructor
     public SecurityOfficer(long id, String firstName, String lastName, String contactNumber, String email, String address,
                            String assignedCheckpoint) {
-        super(id, firstName, lastName, contactNumber, email, address);
+        super(id, firstName, lastName, contactNumber, email, address, "Security Officer");
 
         if (assignedCheckpoint == null || assignedCheckpoint.trim().isEmpty()) {
             throw new IllegalArgumentException("Assigned checkpoint cannot be null or empty.");
         }
-
         this.assignedCheckpoint = assignedCheckpoint.trim();
         this.certifications = new ArrayList<>();
-        this.isOnDuty = false;
     }
 
     // Methods
@@ -149,19 +145,7 @@ public class SecurityOfficer extends Person {
         return Collections.unmodifiableList(certifications);
     }
 
-    public ShiftSchedule getShiftSchedule() {
-        return shiftSchedule;
-    }
-
-    public void setShiftSchedule(ShiftSchedule shiftSchedule) {
-        this.shiftSchedule = shiftSchedule;
-    }
-
     public boolean isOnDuty() {
-        return isOnDuty;
-    }
-
-    public void setOnDuty(boolean isOnDuty) {
-        this.isOnDuty = isOnDuty;
+        return this.getEmploymentStatus() == EmploymentStatus.ACTIVE;
     }
 }

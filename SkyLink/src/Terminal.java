@@ -58,12 +58,13 @@ public class Terminal {
         }
     }
 
-    public void broadcastAnnouncement(String message) {
+    public String broadcastAnnouncement(String message) {
         if (message == null || message.trim().isEmpty()) {
             System.err.println("Cannot broadcast an empty message.");
-            return;
+            return message;
         }
         System.out.println("[Terminal " + terminalId + " Broadcast]: " + message);
+        return message;
     }
 
     // Getters and Setters

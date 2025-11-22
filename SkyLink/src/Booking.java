@@ -25,12 +25,11 @@ public class Booking {
     }
 
     // Methods
-    public double calculateTotalFare() {
+    public void calculateTotalFare() {
         double baseFare = 350.0;
         double seatFee = reservedSeats.size() * 5.0;
         this.totalPrice = baseFare + seatFee;
         System.out.println("Total fare calculated: $" + this.totalPrice);
-        return this.totalPrice;
     }
 
     public void confirmBooking() {
