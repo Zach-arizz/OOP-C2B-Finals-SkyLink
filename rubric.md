@@ -26,8 +26,19 @@ The project demonstrates sophisticated OOP design with over 100+ Java classes sh
 ### 4. Base Grade (10%)
 **Score:** 5/5
 
+### 5. Extra Points (up to 6)
+
+**Features:** 1/5
+- Console
+
+**Code Quality:** 1.0/1.0
+- Variable naming: 0.5/0.5
+- Code organization: 0.5/0.5
+
+**Extra Points Total:** +2.0
+
 ---
 
-## Final Grade: 85/100
+## Final Grade: 85 + 2.0 = **87/100**
 
 *Assessment generated based on project analysis.*
