@@ -1,8 +1,6 @@
 # SkyLink Flight Management System ✈️
 
-# Members: Niño Adrian R. Templo (SAKAMOTO) 
-Zachary Scott D. Ruiz (Zach-arizz) 
-Ergio De Guzman (jho) 
+# Members: Niño Adrian R. Templo (SAKAMOTO), Zachary Scott D. Ruiz (Zach-arizz), Ergio De Guzman (jho) 
 
 ## Purpose
 
